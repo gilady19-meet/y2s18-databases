@@ -2,16 +2,30 @@ from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
-
 Base = declarative_base()
 
 class Knowledge(Base):
-	# Create a table with 4 columns
-	# The first column will be the primary key
-	# The second column should be a string representing
-	# the name of the Wiki article that you're referencing
-	# The third column will be a string representing the 
-	# topic of the article. The last column will be
-	# an integer, representing your rating of the article.
+    __tablename__ = 'Knowledge'
+    t_id = Column(Integer, primary_key=True)
+    topic= Column(String)
+    title= Column(String)
+    rating=Column(Integer)
 
-	pass
+
+    def __repr__(self):
+		if self.rating>6:
+	   		return ("id: {}\n"
+				   	"if you want to learn about: {}\n"
+			  		"you should look at the Wikipedia article called: {} \n"
+			   		"We gave this article a rating of {}").format(
+						self.t_id, self.topic, self.title, self.rating)
+		else:
+			return ("id: {}\n"
+					"if you want to learn about: {}\n"
+					"you should look at the Wikipedia article called: {} \n"
+					"We gave this article a rating of {}\n " 
+					"unfortunatly , this article does not have a better rating. Maybe, this is an article that should be replaced soon").format(
+						self.t_id, self.topic, self.title, self.rating)
+
+x=Knowledge(t_id=1 , topic="sport" , title="real", rating=6)
+print(x)
